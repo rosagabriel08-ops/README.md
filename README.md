@@ -1,46 +1,30 @@
-# -*- coding: utf-8 -*-
-"""
-Atividade Prática - Sistema de Análise de Consumo
-Autor: Seu Nome Completo
-"""
+ste código em Python serve para calcular o custo financeiro do consumo de energia de um aparelho e classificar a sua eficiência energética.
+O script funciona como uma calculadora de gastos elétricos com regras de validação para evitar erros. No entanto, ele possui um pequeno erro de sintaxe (o uso do comando return fora de uma função), que faria o programa travar se executado exatamente assim.
+Abaixo está a explicação detalhada de cada etapa do código:
 
-def processar_consumo():
-    print("=" * 50)
-    print("     SISTEMA DE MONITORAMENTO DE EFICIÊNCIA     ")
-    print("=" * 50)
+1. Entrada de Dados e Validação
 
-    # 1. Entrada de dados com validação básica
-    equipamento = input("Digite o nome ou ID do equipamento: ").strip()
-    
-    try:
-        consumo_kwh = float(input("Digite o consumo mensal do aparelho (em kWh): "))
-        if consumo_kwh < 0:
-            print("\n❌ Erro: O consumo não pode ser um valor negativo.")
-            return
-    except ValueError:
-        print("\n❌ Erro: Por favor, insira um valor numérico válido para o consumo.")
-        return
+O programa pede duas informações ao usuário:
+• Nome ou ID: Registra o equipamento e usa o método .strip() para remover espaços em branco desnecessários digitados antes ou depois do nome.
+• Consumo em kWh: O código tenta converter a entrada para um número decimal (float).
+• Tratamento de Erros: Se o usuário digitar texto em vez de números, o bloco try/except captura o erro (ValueError) e exibe uma mensagem amigável. Ele também impede que sejam digitados números negativos.
+(Nota técnica: Os comandos return nas linhas 8 e 11 só funcionam se este código estiver dentro de uma função def. Se executado como um script solto, ele gerará um erro SyntaxError: 'return' outside function).
 
-    # 2. Constante de Tarifa e Processamento Matemático
-    TARIFA_POR_KWH = 0.75
-    custo_total = consumo_kwh * TARIFA_POR_KWH
+2. Processamento Matemático
 
-    # 3. Regra de Negócio (Estrutura Condicional)
-    LIMITE_EFICIENCIA = 150.0
-    if consumo_kwh <= LIMITE_EFICIENCIA:
-        status_eficiencia = "🌿 EFICIENTE (Consumo dentro da meta)"
-    else:
-        status_eficiencia = "🚨 ALTO CONSUMO (Requer manutenção ou troca)"
+O código estabelece um valor fixo (constante) para a tarifa de energia: R$ 0,75 por kWh.
+• Ele multiplica o consumo digitado por essa tarifa para encontrar o custo total em reais.
 
-    # 4. Exibição do relatório final formatado
-    print("\n" + "-" * 45)
-    print(f" RELATÓRIO DO EQUIPAMENTO: {equipamento.upper()}")
-    print("-" * 45)
-    print(f" Consumo medido:    {consumo_kwh:.2f} kWh")
-    print(f" Custo financeiro:  R$ {custo_total:.2f}")
-    print(f" Classificação:     {status_eficiencia}")
-    print("-" * 45)
-    print(" Análise de dados concluída com sucesso!\n")
+3. Regra de Negócio (Classificação)
 
-if __name__ == "__main__":
-    processar_consumo()
+O script define um teto de consumo de 150.0 kWh para avaliar a eficiência:
+• Até 150 kWh: O aparelho é considerado EFICIENTE.
+• Acima de 150 kWh: O aparelho é considerado de ALTO CONSUMO, sugerindo que precisa ser trocado ou revisado.
+
+4. Relatório Final
+
+Por fim, o código exibe um painel organizado no terminal. Ele utiliza f-strings para formatar os dados, garantindo que o nome do equipamento apareça em letras maiúsculas (.upper()) e que os valores numéricos mostrem sempre duas casas decimais (:.2f), simulando o formato de moeda.
+
+Como corrigir o código para que ele funcione perfeitamente?
+
+Para resolver o problema do return e fazer o script rodar direto no terminal, você pode substituir o return por exit() (para encerrar o programa) ou envelopar o código em uma função. Veja a correção simples usando exit():
